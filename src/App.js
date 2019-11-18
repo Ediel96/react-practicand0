@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import tasks from './sample/tasks.json';
 
+import Tasks from './components/Tasks';
+
 
 class App extends Component{
 
@@ -10,13 +12,9 @@ class App extends Component{
   }
 
   render(){
-
     return <div className="App">
-      {this.state.tasks.map(e => 
-        <p> {e.title} - {e.description} - {e.done}</p>
-        )}
+      <Tasks tasks={this.state.tasks}/>
     </div>
-    
   }
 
 }

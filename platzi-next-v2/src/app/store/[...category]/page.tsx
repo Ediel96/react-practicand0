@@ -1,27 +1,28 @@
-import React from 'react'
+"use client";
+
+import React, { use } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 interface CategoryProps {
-  params: {
+  params: Promise<{
     category: string[]
-  },
-  searchParams:  {
-    model?: string
-  }
+  }>
 }
 
-export default async function Category({ params, searchParams }: CategoryProps) {
+export default function Category({ params }: CategoryProps) {
+  const resolvedParams = use(params);
+  const searchParams = useSearchParams();
+  const model = searchParams.get('model');
 
-  const resolvedParams = await params;
-  const { category } = resolvedParams
-  const { model } = searchParams
+  const { category } = resolvedParams;
 
-  console.log(model);
   console.log(category);
+  console.log(model);
 
   return (
     <div>
-      <h3>Categoria dinamica: {category}</h3>
-      <h3>Modelo: {model}</h3>
+      <h3>Categoria dinamica: {category.join(' / ')}</h3>
+      {model && <h3>Modelo: {model}</h3>}
     </div>
   )
 }
